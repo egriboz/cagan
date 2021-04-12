@@ -1,22 +1,22 @@
-import React, { useRef, useState, useEffect, Suspense } from 'react'
-import * as THREE from 'three'
-import { Canvas, useFrame, useLoader } from 'react-three-fiber'
+import React, { useRef, useState, useEffect, Suspense } from "react";
+import * as THREE from "three";
+import { Canvas, useFrame, useLoader } from "react-three-fiber";
 
-let GLTFLoader
+let GLTFLoader;
 
 const Bird = ({ speed, factor, url, ...props }) => {
-  const gltf = useLoader(GLTFLoader, url)
-  const group = useRef()
-  const [mixer] = useState(() => new THREE.AnimationMixer())
+  const gltf = useLoader(GLTFLoader, url);
+  const group = useRef();
+  const [mixer] = useState(() => new THREE.AnimationMixer());
   useEffect(
     () => void mixer.clipAction(gltf.animations[0], group.current).play(),
     [gltf.animations, mixer]
-  )
+  );
   useFrame((state, delta) => {
     group.current.rotation.y +=
-      Math.sin((delta * factor) / 2) * Math.cos((delta * factor) / 2) * 1.5
-    mixer.update(delta * speed)
-  })
+      Math.sin((delta * factor) / 2) * Math.cos((delta * factor) / 2) * 1.5;
+    mixer.update(delta * speed);
+  });
   return (
     <group ref={group}>
       <scene name="Scene" {...props}>
@@ -35,22 +35,22 @@ const Bird = ({ speed, factor, url, ...props }) => {
         </mesh>
       </scene>
     </group>
-  )
-}
+  );
+};
 
 const Birds = () => {
   return new Array(5).fill().map((_, i) => {
-    const x = (15 + Math.random() * 30) * (Math.round(Math.random()) ? -1 : 1)
-    const y = -10 + Math.random() * 20
-    const z = -5 + Math.random() * 10
-    const bird = ['stork', 'parrot', 'flamingo'][Math.round(Math.random() * 2)]
-    let speed = bird === 'stork' ? 0.5 : bird === 'flamingo' ? 2 : 5
+    const x = (15 + Math.random() * 30) * (Math.round(Math.random()) ? -1 : 1);
+    const y = -10 + Math.random() * 20;
+    const z = -5 + Math.random() * 10;
+    const bird = ["stork", "parrot", "flamingo"][Math.round(Math.random() * 2)];
+    let speed = bird === "stork" ? 0.5 : bird === "flamingo" ? 2 : 5;
     let factor =
-      bird === 'stork'
+      bird === "stork"
         ? 0.5 + Math.random()
-        : bird === 'flamingo'
+        : bird === "flamingo"
         ? 0.25 + Math.random()
-        : 1 + Math.random() - 0.5
+        : 1 + Math.random() - 0.5;
     return (
       <Bird
         key={i}
@@ -60,14 +60,14 @@ const Birds = () => {
         factor={factor}
         url={`/glb/${bird}.glb`}
       />
-    )
-  })
-}
+    );
+  });
+};
 
-const BirdsPage = props => {
+const BirdsPage = (props) => {
   useEffect(() => {
-    GLTFLoader = require('three/examples/jsm/loaders/GLTFLoader').GLTFLoader
-  }, [])
+    GLTFLoader = require("three/examples/jsm/loaders/GLTFLoader").GLTFLoader;
+  }, []);
   return (
     <>
       <Canvas camera={{ position: [0, 0, 55] }}>
@@ -78,7 +78,7 @@ const BirdsPage = props => {
         </Suspense>
       </Canvas>
     </>
-  )
-}
+  );
+};
 
-export default BirdsPage
+export default BirdsPage;

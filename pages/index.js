@@ -1,12 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import Bird from "./birds";
+import { IconMoodBoy } from "@tabler/icons";
 
 const Index = () => {
   return (
     <>
       <div className="main">
-        <div className="logo">DRAGON MAVİŞ</div>
+        <div className="logo">
+          <IconMoodBoy />
+          <span>DRAGON MAVİŞ</span>
+        </div>
         <Bird />
         {/* <Link href="/birds">
         <a>Birds Example</a>
@@ -15,14 +19,7 @@ const Index = () => {
         <a>Boxes Example</a>
       </Link> */}
       </div>
-      <style jsx global>{`
-        .logo {
-          padding: 10px;
-          color: darkblue;
-          font-family: sans-serif;
-          font-weight: bold;
-        }
-      `}</style>
+      <style jsx global>{``}</style>
     </>
   );
 };
